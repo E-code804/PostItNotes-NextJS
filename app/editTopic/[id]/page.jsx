@@ -1,12 +1,11 @@
-import { URL } from "@/ExportURL";
 import EditTopicForm from "@/components/EditTopicForm";
-import React from "react";
 
 const EditTopic = async ({ params }) => {
   const { id } = params;
+  const url = process.env.API_URL;
   const getTopicById = async (id) => {
     try {
-      const res = await fetch(`http://${URL}/api/topics/${id}`, {
+      const res = await fetch(`${url}/api/topics/${id}`, {
         cache: "no-store",
       });
 

@@ -1,5 +1,4 @@
 "use client";
-import { URL } from "@/ExportURL";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -17,7 +16,7 @@ const AddTopic = () => {
     }
 
     try {
-      const res = await fetch(`http://${URL}/api/topics`, {
+      const res = await fetch(`/api/topics`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

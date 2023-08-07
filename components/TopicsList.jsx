@@ -1,13 +1,12 @@
-import { URL } from "@/ExportURL";
 import Link from "next/link";
-import React from "react";
 import { HiPencilAlt } from "react-icons/hi";
 import RemoveBtn from "./RemoveBtn";
 
 // Getting topics
 const getTopics = async () => {
+  const url = process.env.API_URL;
   try {
-    const res = await fetch(`http://${URL}/api/topics`, {
+    const res = await fetch(`${url}/api/topics`, {
       cache: "no-store",
     });
     if (!res.ok) {

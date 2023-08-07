@@ -1,5 +1,4 @@
 "use client";
-import { URL } from "@/ExportURL";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -17,7 +16,7 @@ const EditTopicForm = ({ id, title, description }) => {
     }
 
     try {
-      const res = await fetch(`http://${URL}/api/topics/${id}`, {
+      const res = await fetch(`/api/topics/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
