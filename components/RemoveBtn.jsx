@@ -1,4 +1,5 @@
 "use client";
+import { URL } from "@/ExportURL";
 import { useRouter } from "next/navigation";
 import { HiOutlineTrash } from "react-icons/hi";
 
@@ -8,7 +9,7 @@ const RemoveBtn = ({ id }) => {
     const confirmed = confirm("Are you sure you want to delete this topic?");
 
     if (confirmed) {
-      const res = await fetch(`http://localhost:3000/api/topics?id=${id}`, {
+      const res = await fetch(`http://${URL}/api/topics?id=${id}`, {
         method: "DELETE",
       });
       if (res.ok) {
