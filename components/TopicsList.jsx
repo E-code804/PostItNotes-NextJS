@@ -1,4 +1,7 @@
+"use client";
+import { useGlobalContext } from "@/app/context/context";
 import Link from "next/link";
+import { useEffect } from "react";
 import { HiPencilAlt } from "react-icons/hi";
 import RemoveBtn from "./RemoveBtn";
 
@@ -18,8 +21,28 @@ const getTopics = async () => {
   }
 };
 
-const TopicsList = async () => {
-  const topics = await getTopics();
+const TopicsList = () => {
+  //const topics = await getTopics();
+  const { topics, dispatch } = useGlobalContext();
+
+  useEffect(() => {
+    const fetchTopics = async () => {
+      //const url = process.env.API_URL;
+      try {
+        const res = await fetch(`/api/topics`, {
+          cache: "no-store",
+        });
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+        const json = await res.json();
+        dispatch({ type: "SET_TOPICS", payload: json });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchTopics();
+  }, [dispatch]);
 
   return (
     <>

@@ -1,10 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useGlobalContext } from "../context/context";
 
 const AddTopic = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const { dispatch } = useGlobalContext();
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -30,10 +32,14 @@ const AddTopic = () => {
       if (!res.ok) {
         throw new Error(res.statusText);
       }
+      const json = await res.json();
+      dispatch({
+        type: "ADD_TOPIC",
+        payload: json,
+      });
       setTitle("");
       setDescription("");
       router.push("/");
-      router.refresh();
     } catch (error) {
       console.log(error);
     }

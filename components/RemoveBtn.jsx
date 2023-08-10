@@ -1,9 +1,9 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useGlobalContext } from "@/app/context/context";
 import { HiOutlineTrash } from "react-icons/hi";
 
 const RemoveBtn = ({ id }) => {
-  const router = useRouter();
+  const { dispatch } = useGlobalContext();
   const removeTopic = async () => {
     const confirmed = confirm("Are you sure you want to delete this topic?");
 
@@ -12,7 +12,11 @@ const RemoveBtn = ({ id }) => {
         method: "DELETE",
       });
       if (res.ok) {
-        router.refresh();
+        const json = await res.json();
+        dispatch({
+          type: "REMOVE_TOPIC",
+          payload: json,
+        });
       }
     }
   };

@@ -1,4 +1,5 @@
 "use client";
+import { useGlobalContext } from "@/app/context/context";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -6,6 +7,7 @@ const EditTopicForm = ({ id, title, description }) => {
   const router = useRouter();
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
+  const { dispatch } = useGlobalContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,10 +32,11 @@ const EditTopicForm = ({ id, title, description }) => {
       if (!res.ok) {
         throw new Error(res.statusText);
       }
+      const json = await res.json();
+      dispatch({ type: "UPDATE_TOPIC", payload: json });
       setNewTitle("");
       setNewDescription("");
       router.push("/");
-      router.refresh();
     } catch (error) {
       console.log(error);
     }
